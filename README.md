@@ -1,9 +1,16 @@
 WinShareEnum
 ============
 
-Windows Share Enumerator
+###### TO DO:
+- Fix Output (Removing the new lines etc)
+- Provide hostnames for nicer output
+- Create output for specific tooling?
+- Pull hostnames from Bloodhound?
+- Resolve SIDs from Bloodhound?
+- Dark Mode?
+- Fix logo?
 
-download  https://github.com/nccgroup/WinShareEnum/raw/master/Info/WinShareEnum.exe
+Windows Share Enumerator
 
 running against a range on my local (non-domain) network, with a few dummy shares. Please remember this is primarily designed for domain-ed / large networks:
 
