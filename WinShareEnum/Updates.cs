@@ -33,21 +33,6 @@ namespace WinShareEnum
             return double.Parse(readFromSite(new Uri("https://raw.githubusercontent.com/nccgroup/WinShareEnum/master/Info/version.txt"))[0]);
         }
 
-        public static string downloadUpdate(double newestVersion)
-        {
-            WebClient client = new WebClient();
-            client.Proxy = null;
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\WinShareEnum-" + newestVersion.ToString() + ".exe";
-
-            if (File.Exists(filePath))
-            {
-                return filePath;
-            }
-
-            client.DownloadFile("https://github.com/nccgroup/WinShareEnum/raw/master/Info/WinShareEnum.exe", filePath);
-            return filePath;
-        }
-
         private static List<string> readFromSite(Uri url)
         {
             WebClient client = new WebClient();

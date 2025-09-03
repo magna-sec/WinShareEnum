@@ -163,7 +163,6 @@
             <MenuItem Header="About" IsTabStop="False">
                 <MenuItem x:Name="mi_version" Header="Version" HorizontalAlignment="Left" Width="200" Click="mi_version_Click"/>
                 <MenuItem x:Name="mi_updateRules" Header="Update rules" HorizontalAlignment="Left" Width="200" Click="mi_updateRules_Click" />
-                <MenuItem x:Name="mi_checkAppUpdates" Header="Update Application" HorizontalAlignment="Left" Width="200" Click="mi_checkAppUpdates_Click" />
             </MenuItem>
         </Menu>
 

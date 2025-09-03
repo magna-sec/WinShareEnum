@@ -1073,42 +1073,6 @@ namespace WinShareEnum
 
         }
 
-        private void mi_checkAppUpdates_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var latestVersion = updates.getLatestVersion();
-                if (updates.getCurrentVersion() < latestVersion)
-                {
-                    MessageBoxResult mbr = System.Windows.MessageBox.Show("New version available, want to download it? \r\n\r\nNote: this will download to " + Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\WinShareEnum-" + latestVersion.ToString() + ".exe", "Update", MessageBoxButton.YesNo, MessageBoxImage.Information);
-
-                    if (mbr == MessageBoxResult.Yes)
-                    {
-                        try
-                        {
-                            addLog("Downloading most recent version to desktop..");
-                            addLog(updates.downloadUpdate(latestVersion) + " downloaded.");
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Windows.MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                            addLog("Error " + ex.Message + " -- " + ex.StackTrace);
-                        }
-                    }
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("No New Version Available", "Update", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show("Error getting current version. " + ex.Message, "Update Rules Failed", MessageBoxButton.OK, MessageBoxImage.Error);
-                addLog("Error " + ex.Message + " -- " + ex.StackTrace);
-            }
-        }
-
         private void mi_importIPs_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
