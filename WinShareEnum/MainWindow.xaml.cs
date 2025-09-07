@@ -2150,6 +2150,25 @@ namespace WinShareEnum
             }
         }
 
+        private void mi_Setup_Click(object sender, RoutedEventArgs e)
+        {
+            if (System.Windows.Application.Current.Windows.Count == 1)
+            {
+                setup s = new setup();
+                s.Show();
+            }
+            else
+            {
+                foreach (Window w in System.Windows.Application.Current.Windows)
+                {
+                    if (!w.IsActive)
+                    {
+                        w.Activate();
+                    }
+
+                }
+            }
+        }
     }
 }
 

@@ -160,15 +160,16 @@
                 <MenuItem x:Name="mi_CopyLog" Header="Copy Log" HorizontalAlignment="Left" Width="275" Click="mi_CopyLog_Click" />
             </MenuItem>
             <MenuItem x:Name="mi_Options" Header="Options" Click="mi_Options_Click" IsTabStop="False"  />
-            <MenuItem Header="About" IsTabStop="False">
+            <MenuItem Header="About" IsTabStop="False" Click="mi_Setup_Click">
                 <MenuItem x:Name="mi_version" Header="Version" HorizontalAlignment="Left" Width="200" Click="mi_version_Click"/>
                 <MenuItem x:Name="mi_updateRules" Header="Update rules" HorizontalAlignment="Left" Width="200" Click="mi_updateRules_Click" />
             </MenuItem>
+            <MenuItem Header="Setup" Click="mi_Setup_Click"/>
         </Menu>
 
 
         <Grid Height="30" Margin="159,0,0,0" VerticalAlignment="Top">
-            <Menu Margin="-10,0,0,0" >
+            <Menu Margin="50,0,0,0" >
                 <!--blank menu just so i don't have to faff with the red on the other-->
                 <Menu.Background>
                     <ImageBrush ImageSource="Resources/header-long.png" Opacity="0.2" Stretch="None" TileMode="Tile"/>
