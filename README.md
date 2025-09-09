@@ -7,7 +7,10 @@ WinShareEnum
 - Create output for specific tooling?
 - Pull hostnames from Bloodhound?
 - Resolve SIDs from Bloodhound?
-- Dark Mode?
+- Pull hostnames from Bloodhound
+- Toggle workstations
+- NETBIOS via SMB to resolve IPs
+- Dark Mode? - Semi Done
 - Fix logo?
 
 Windows Share Enumerator
