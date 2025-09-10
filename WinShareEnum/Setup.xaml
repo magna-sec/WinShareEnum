@@ -104,7 +104,7 @@
                 <StackPanel Margin="15">
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,8">
                         <Label Content="IP Range:" FontWeight="Bold" Width="130" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tbIPRange" Height="25" Width="180" TextChanged="OnIPRangeInputChanged"/>
+                        <TextBox x:Name="tbIPRange" Height="25" Width="180" TextChanged="tbIPRange_TextChanged"/>
                     </StackPanel>
                     <CheckBox x:Name="cb_netbios_lookup" Content="Look up NETBIOS name via SMB" Margin="5,0,0,5" Checked="OnIPRangeInputChanged" Unchecked="OnIPRangeInputChanged"/>
                 </StackPanel>
@@ -114,13 +114,14 @@
             <GroupBox x:Name="gb_auth_setup" Header="Authentication">
                 <StackPanel Margin="15">
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
-                        <Label Content="Username:" FontWeight="Bold" Width="130" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tb_auth_username" Height="25" Width="180" TextChanged="OnAuthInputChanged"/>
+                        <Label x:Name="lbl_username" Content="Username:" FontWeight="Bold" Width="130" VerticalAlignment="Center"/>
+                        <TextBox x:Name="tb_auth_username" Height="25" Width="180" TextChanged="tbUsername_TextChanged"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                        <Label Content="Password:" FontWeight="Bold" Width="130" VerticalAlignment="Center"/>
-                        <PasswordBox x:Name="pb_auth_password" Height="25" Width="180" PasswordChanged="OnAuthInputChanged"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <Label x:Name="lbl_password" Content="Password:" FontWeight="Bold" Width="130" VerticalAlignment="Center"/>
+                        <PasswordBox x:Name="pb_auth_password" Height="25" Width="180" PasswordChanged="tbPassword_PasswordChanged"/>
                     </StackPanel>
+                    <CheckBox x:Name="cb_use_null_session" Content="Use Null Session" Margin="5,0,0,5" Checked="cb_use_null_session_Checked" Unchecked="cb_use_null_session_Unchecked"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
@@ -128,8 +129,8 @@
         <!-- Bottom buttons -->
         <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Orientation="Horizontal" 
                     HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button Content="Cancel" Width="75" Height="30" Margin="0,0,10,0"/>
-            <Button Content="OK" Width="75" Height="30"/>
+            <Button x:Name="btnCancel" Content="Cancel" Width="75" Height="30" Margin="0,0,10,0" Click="btnCancel_Click"/>
+            <Button x:Name="btnOK" Content="OK" Width="75" Height="30" Click="btnOK_Click"/>
         </StackPanel>
     </Grid>
 </Window>

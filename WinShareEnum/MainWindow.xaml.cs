@@ -16,6 +16,7 @@ using System.Security.AccessControl;
 using System.DirectoryServices.ActiveDirectory;
 using System.Security.Principal;
 using System.DirectoryServices;
+using static WinShareEnum.setup;
 
 namespace WinShareEnum
 {
@@ -23,8 +24,7 @@ namespace WinShareEnum
     {
 
         #region variables
-        public static string USERNAME = "";
-        public static string PASSSWORD = "";
+
         public static List<string> interestingFileList = new List<string>() { "web.conf", "credentials", "credentials.*", "###\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b", "creds", "creds.*", "shadow", ".bashrc", "secret", "secret.*", "*.pem", "password.*", ".htaccess", "key.*", "privatekey.*", "private_key.*", "global.asax", "pwned.*", "*.key", "*.pkcs12", "*.pfx", "*.p12", "*.crt" };
         public static List<string> fileContentsFilters = new List<string>() { "BEGIN PRIVATE KEY", "BEGIN RSA PRIVATE KEY", "password=", "password =", "pass=", "pass = ", "password:", "password :", "username =", "user =", "username=", "user=" };
 
@@ -57,7 +57,7 @@ namespace WinShareEnum
         public static ConcurrentDictionary<string, List<shareStruct>> all_readable_shares = new ConcurrentDictionary<string, List<shareStruct>>();
         public static ConcurrentDictionary<string, Dictionary<string, List<string>>> all_readable_files = new ConcurrentDictionary<string, Dictionary<string, List<string>>>();
         public ConcurrentBag<string> all_interesting_files = new ConcurrentBag<string>();
-        public static List<IPAddress> ImportedIPs = new List<IPAddress>();
+        //public static List<IPAddress> ImportedIPs = new List<IPAddress>();
         public static ConcurrentBag<dgItem> dgList = new ConcurrentBag<dgItem>();
 
         public static ConcurrentBag<string> SIDsToResolve = new ConcurrentBag<string>();
@@ -127,13 +127,7 @@ namespace WinShareEnum
 
         #region misc GUI crap
 
-        private void tbUsername_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tbUsername.Text != "")
-            {
-                USERNAME = tbUsername.Text;
-            }
-        }
+
 
         private void timeout_Change(object sender, TextChangedEventArgs e)
         {
@@ -151,64 +145,12 @@ namespace WinShareEnum
             }
         }
 
-        private void tbIPRange_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //assume since they changed the IP list, they no longer want to use their imported list..
-            if (tbIPRange.Text.ToLower() != "using imported list")
-            {
-                useImportedIPs = false;
-            }
-        }
 
-        private void tbPassword_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (tbPassword.Password != "")
-            {
-                PASSSWORD = tbPassword.Password;
-            }
-        }
 
-        private void tbUsername_GotFocus(object sender, RoutedEventArgs e)
-        {
-            tbUsername.Text = "";
-        }
 
-        private void tbPassword_GotFocus(object sender, RoutedEventArgs e)
-        {
-            tbPassword.Password = "";
-        }
 
-        private void tbPassword_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (tbPassword.Password == "")
-            {
-                tbPassword.Password = PASSSWORD;
-            }
-        }
 
-        private void tbUsername_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (tbUsername.Text == "")
-            {
-                tbUsername.Text = USERNAME;
-            }
-        }
 
-        private void checkbox_Null_Checked(object sender, RoutedEventArgs e)
-        {
-            tbUsername.IsEnabled = false;
-            tbPassword.IsEnabled = false;
-            USERNAME = "";
-            PASSSWORD = "";
-            tbUsername.Text = "DOMAIN\\USER";
-            tbPassword.Password = "password";
-        }
-
-        private void checkbox_Null_Unchecked(object sender, RoutedEventArgs e)
-        {
-            tbUsername.IsEnabled = true;
-            tbPassword.IsEnabled = true;
-        }
 
         private void resetGUI()
         {
@@ -487,14 +429,14 @@ namespace WinShareEnum
 
             try
             {
-                if (checkbox_Null.IsChecked == false)
+                if (!setup.UseNullSession)
                 {
-                    string[] splat = tbUsername.Text.Split('\\');
+                    string[] splat = setup.USERNAME.Split('\\');
                     if (splat.Length < 2)
                     {
                         throw new Exception("Enter a Domain");
                     }
-                    else if (tbUsername.Text.ToLower() == "domain\\user")
+                    else if (setup.USERNAME.ToLower() == "domain\\user")
                     {
                         throw new Exception("Enter credentials");
                     }
@@ -516,7 +458,7 @@ namespace WinShareEnum
                 {
                     try
                     {
-                        IPRange ipr = new IPRange(tbIPRange.Text.Trim());
+                        IPRange ipr = new IPRange(setup.IPRangeText.Trim());
                         ip_list = ipr.GetAllIP().ToList();
                     }
                     catch (Exception)
@@ -1087,7 +1029,7 @@ namespace WinShareEnum
                 addLog("Adding IPs from " + dlg.FileName);
                 resetGUI();
                 useImportedIPs = true;
-                tbIPRange.Text = "Using Imported";
+                setup.IPRangeText = "Using Imported List";
 
                 ImportedIPs = new List<IPAddress>();
                 try
